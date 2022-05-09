@@ -17,25 +17,33 @@
 
 <script>
     function Timer(seconds) {
+        //Создаем переменные для начала и конца таймера
         let startDate = new Date()
         let endDate = new Date()
+        //Вычисляем конец таймера
         endDate = endDate.setSeconds(endDate.getSeconds() + seconds)
         let interval = setInterval(() => {
+            //Создаем переменную для текущего времени
             let currentDate = new Date()
+            //Вычисляем оставшиеся проценты
             let leftPercent = Math.trunc((endDate-currentDate) / (endDate-startDate) * 100)
+            //Вычисляем уже пройденные проценты
             let passedPercent = +(100 - leftPercent)
 
+            //Добавляем полученные данные в соответствующие html элементы и применяем к ним нужные стили
             document.querySelector('.timer-progresbar-fill').textContent = passedPercent + '%'
             document.querySelector('.timer-progresbar-fill').style.width = passedPercent + '%'
             document.querySelector('.timer-progresbar-empty').textContent = leftPercent + '%'
             document.querySelector('.timer-progresbar-empty').style.width = leftPercent + '%'
 
+            //Когда таймер завершен, интервал очищается, элемент, в котором находились оставшиеся проценты, скрывается
             if (leftPercent == 0){
                 clearInterval(interval)
                 document.querySelector('.timer-progresbar-empty').style.display = 'none'
             }
         }, 1000)
     }
+    //Запускается таймер на 12 секунд
     Timer(12)
 </script>
 
